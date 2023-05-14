@@ -27,7 +27,7 @@ const register = async (req, res) => {
     const { username, email, password, phonenumber, address } = req.body;
 
     if (!(username && email && password && phonenumber && address)) {
-      throw new Error("All input required");
+      throw new Error("cần nhập các trường");
     }
 
     const normalizedEmail = email.toLowerCase();
@@ -39,7 +39,7 @@ const register = async (req, res) => {
     });
 
     if (existingUser) {
-      throw new Error("Email and username must be unique");
+      throw new Error("Email và mật khẩu phải độc nhất");
     }
 
     const user = await User.create({
@@ -63,7 +63,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      throw new Error("All input required");
+      throw new Error("Cần nhập các trường");
     }
 
     const normalizedEmail = email.toLowerCase();
@@ -71,13 +71,13 @@ const login = async (req, res) => {
     const user = await User.findOne({ email: normalizedEmail });
 
     if (!user) {
-      throw new Error("Email or password incorrect");
+      throw new Error("Email hoặc mật khẩu sai");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new Error("Email or password incorrect");
+      throw new Error("Email hoặc mật khẩu sai");
     }
 
     const token = jwt.sign(buildToken(user), process.env.TOKEN_KEY);
@@ -91,16 +91,16 @@ const login = async (req, res) => {
 
 const follow = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId, followingName, followerName } = req.body;
     const followingId = req.params.id;
 
     const existingFollow = await Follow.find({ userId, followingId });
 
-    if (existingFollow) {
-      throw new Error("Already following this user");
+    if (existingFollow.length > 0) {
+      throw new Error("Đã theo dõi người này");
     }
 
-    const follow = await Follow.create({ userId, followingId });
+    const follow = await Follow.create({ userId, followingId, followingName, followerName });
 
     return res.status(200).json({ data: follow });
   } catch (err) {
@@ -115,7 +115,7 @@ const updateUser = async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      throw new Error("User does not exist");
+      throw new Error("người dùng không tồn tại");
     }
 
     if (typeof biography == "string") {
@@ -141,13 +141,13 @@ const updateUser = async (req, res) => {
 
 const unfollow = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId, followingName, followerName } = req.body;
     const followingId = req.params.id;
 
-    const existingFollow = await Follow.find({ userId, followingId });
+    const existingFollow = await Follow.findOne({ userId, followingId, followingName, followerName });
 
-    if (!existingFollow) {
-      throw new Error("Not already following user");
+    if (existingFollow.length == 0) {
+      throw new Error("chưa theo dõi người dùng");
     }
 
     await existingFollow.remove();
@@ -189,7 +189,7 @@ const getUser = async (req, res) => {
     const user = await User.findOne({ username }).select("-password");
 
     if (!user) {
-      throw new Error("User does not exist");
+      throw new Error("người dùng không tồn tại");
     }
 
     const posts = await Post.find({ poster: user._id })

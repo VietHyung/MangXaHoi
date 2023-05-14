@@ -19,7 +19,7 @@ import PostContentBox from "./PostContentBox";
 import HorizontalStack from "./util/HorizontalStack";
 
 import {} from "react-icons/ai";
-import ContentUpdateEditor from "./ContentUpdateEditor";
+import PostContentUpdateEditor from "./PostContentUpdateEditor";
 import Markdown from "./Markdown";
 
 import "./postCard.css";
@@ -91,7 +91,7 @@ const PostCard = (props) => {
   };
 
   return (
-    <Card sx={{ padding: 0 }} className="post-card">
+    <Card  sx={{ padding: 0 }} className="post-card">
       <Box className={preview}>
         <HorizontalStack spacing={0} alignItems="initial">
           <Stack
@@ -150,6 +150,7 @@ const PostCard = (props) => {
 
             <Typography
               variant="h5"
+              fontWeight="bold"
               gutterBottom
               sx={{ overflow: "hidden", mt: 1, maxHeight: 125 }}
               className="title"
@@ -159,7 +160,7 @@ const PostCard = (props) => {
 
             {preview !== "secondary" &&
               (editing ? (
-                <ContentUpdateEditor
+                <PostContentUpdateEditor
                   handleSubmit={handleSubmit}
                   originalContent={post.content}
                 />

@@ -70,8 +70,8 @@ const Navbar = () => {
 
   return (
     <Stack mb={2} mt={1} pb={1} sx={{ 
-      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", 
-      backgroundColor: "lightgray",
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)", 
+      backgroundColor: "#4FE5B5",
       position:"fixed",
       top: -17, left: 0,
       width: "100%",
@@ -89,19 +89,31 @@ const Navbar = () => {
       >
         <HorizontalStack flexGrow={1} >
           <AiOutlineWifi
-            size={33}
+            size={50}
             color={theme.palette.primary.main}
             onClick={() => navigate("/")}
+            cursor="pointer"
           />
           <Typography
-            sx={{ display: mobile ? "none" : "block" }}
-            variant={navbarWidth ? "h6" : "h4"}
+            sx={{ display: mobile ? "none" : "block", cursor: "pointer", textShadow:"2.5px 2.5px #46C19A"}}
+            variant={navbarWidth ? "h5" : "h4"}
             mr={1}
             color={theme.palette.primary.main}
+            onClick={() => navigate("/")}
+            fontWeight="bold"
+            fontStyle="italic"
           >
-            {/* <Link to="/" color="inherit"> */}
-              SocialMedia
-            {/* </Link> */}
+            <span style={{ color: "#e91e63" }}>S</span>
+            <span style={{ color: "#2196f3" }}>o</span>
+            <span style={{ color: "#9c27b0" }}>c</span>
+            <span style={{ color: "#ffc107" }}>i</span>
+            <span style={{ color: "#4caf50" }}>a</span>
+            <span style={{ color: "#f44336" }}>l</span>
+            <span style={{ color: "#03a9f4" }}>M</span>
+            <span style={{ color: "#8bc34a" }}>e</span>
+            <span style={{ color: "#673ab7" }}>d</span>
+            <span style={{ color: "#ff5722" }}>i</span>
+            <span style={{ color: "#607d8b" }}>a</span>
           </Typography>
         </HorizontalStack>
 
@@ -110,7 +122,7 @@ const Navbar = () => {
             <TextField
               size="small"
               label="Tìm bài đăng ..."
-              sx={{ maxWidth: 700}}
+              sx={{ maxWidth: 700, backgroundColor: "white", borderRadius:".3rem"}}
               fullWidth
               onChange={handleChange}
               value={search}
@@ -126,12 +138,12 @@ const Navbar = () => {
           )}
 
           <IconButton component={Link} to={"/"}>
-            <AiFillHome />
+            <AiFillHome style={{ color: "#EB3F3F" }} />
           </IconButton>
           {user ? (
             <>
               <IconButton component={Link} to={"/messenger"}>
-                <AiFillMessage />
+                <AiFillMessage style={{ color: "#3AA9EB" }} /> 
               </IconButton>
               <IconButton component={Link}  to={"/users/" + username}>
                 <UserAvatar width={30} height={30} username={user.username} />

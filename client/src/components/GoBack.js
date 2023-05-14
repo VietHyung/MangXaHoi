@@ -1,12 +1,19 @@
-import { Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { AiTwotoneHome } from "react-icons/ai";
 
 const GoBack = () => {
   return (
-    <Typography sx={{ mb: 2 }}>
-      <Link to="/"> &lt;&lt; Quay về trang chủ</Link>
-    </Typography>
+    <Button
+      component={Link}
+      to="/"
+      variant="contained"
+      color="primary"
+      sx={{ mb: 2 }}
+    >
+      <AiTwotoneHome fontSize="1.5rem" />  Quay về trang chủ
+    </Button>
   );
 };
 

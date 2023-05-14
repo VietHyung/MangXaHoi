@@ -10,6 +10,7 @@ import Navbar from "../Navbar";
 import SortBySelect from "../SortBySelect";
 import PostCard from "../PostCard";
 import Sidebar from "../Sidebar";
+import LeftSidebar from "../LeftSidebar";
 import HorizontalStack from "../util/HorizontalStack";
 import PostBrowser from "../PostBrowser";
 
@@ -18,9 +19,9 @@ const ExploreView = () => {
     <>
       <Navbar/>
       <br/>
-      <Container sx={{marginTop:"3.5rem"}}>
+      <Container  sx={{marginTop:"3.5rem"}}>
         <GridLayout
-          mid={<Sidebar/>}
+          mid={<LeftSidebar/>}
           left={<PostBrowser createPost contentType="posts" />}
           right={<Sidebar/>}
         />

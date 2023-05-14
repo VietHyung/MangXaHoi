@@ -11,17 +11,12 @@ import TopPosts from "./TopPosts";
 
 const Sidebar = () => {
   return (
-    <Stack spacing={2} sx={{ 
+    <Stack spacing={1} sx={{ 
         position: 'fixed',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: '#f0f2f5',
-        overflowY: 'auto',
-        padding: '16px',
+        mr:"10px"
       }}>
       <TopPosts />
-      <FindUsers />
+      {/* <FindUsers /> */}
       <Footer />
     </Stack>
   );

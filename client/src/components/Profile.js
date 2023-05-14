@@ -16,10 +16,12 @@ import ContentUpdateEditor from "./ContentUpdateEditor";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import UserAvatar from "./UserAvatar";
+import { follow, unFollow, getFollowers, getFollowing } from "../api/users";
 import HorizontalStack from "./util/HorizontalStack";
 
 const Profile = (props) => {
   const [user, setUser] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
   const currentUser = isLoggedIn();
   const theme = useTheme();
   const iconColor = theme.palette.primary.main;
@@ -27,8 +29,23 @@ const Profile = (props) => {
   useEffect(() => {
     if (props.profile) {
       setUser(props.profile.user);
+
+      getFollowing(currentUser.userId).then((result) => {
+      setIsFollowing(result.data.some(item => item.followingId === props.profile.user._id));
+    });
     }
   }, [props.profile]);
+
+
+  const handleFollow = async () => {
+    if(!isFollowing){
+      await follow(currentUser.userId, currentUser.token, user._id, user.username, currentUser.username);
+      setIsFollowing(true)
+    } else{
+      await unFollow(currentUser.userId, currentUser.token, user._id, user.username, currentUser.username);
+      setIsFollowing(false)
+    }
+  };
 
   return (
     <Card>
@@ -65,7 +82,7 @@ const Profile = (props) => {
 
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <Typography variant="p"><b>Phone number: </b></Typography>
+                  <Typography variant="p"><b>SĐT: </b></Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="p">{user.phonenumber}</Typography>
@@ -74,7 +91,7 @@ const Profile = (props) => {
               
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <Typography variant="p"><b>Address: </b></Typography>
+                  <Typography variant="p"><b>Địa chỉ: </b></Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="p">{user.address}</Typography>
@@ -104,7 +121,7 @@ const Profile = (props) => {
 
             <Grid container justifyContent="space-between">
                 <Grid item>
-                  <Typography variant="p"><b>Phone number: </b></Typography>
+                  <Typography variant="p"><b>SĐT: </b></Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="p">{user.phonenumber}</Typography>
@@ -113,7 +130,7 @@ const Profile = (props) => {
               
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <Typography variant="p"><b>Address: </b></Typography>
+                  <Typography variant="p"><b>Địa chỉ: </b></Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="p">{user.address}</Typography>
@@ -145,6 +162,11 @@ const Profile = (props) => {
           {currentUser && user._id !== currentUser.userId && (
             <Button variant="outlined" onClick={props.handleMessage}>
               Nhắn tin
+            </Button>
+          )}
+          {currentUser && user._id !== currentUser.userId && (
+            <Button variant="outlined" onClick={handleFollow}>
+              {isFollowing ? "Đã theo dõi" : "Theo dõi"}
             </Button>
           )}
 

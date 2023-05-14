@@ -8,7 +8,7 @@ import CommentEditor from "./CommentEditor";
 import ContentDetails from "./ContentDetails";
 import HorizontalStack from "./util/HorizontalStack";
 import { deleteComment, updateComment } from "../api/posts";
-import ContentUpdateEditor from "./ContentUpdateEditor";
+import PostContentUpdateEditor from "./PostContentUpdateEditor";
 import Markdown from "./Markdown";
 import { MdCancel } from "react-icons/md";
 import { BiReply, BiTrash } from "react-icons/bi";
@@ -155,7 +155,7 @@ const Comment = (props) => {
             {!editing ? (
               <Markdown content={comment.content} />
             ) : (
-              <ContentUpdateEditor
+              <PostContentUpdateEditor
                 handleSubmit={handleSubmit}
                 originalContent={comment.content}
               />

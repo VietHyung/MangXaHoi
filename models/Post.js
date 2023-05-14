@@ -17,7 +17,7 @@ const PostSchema = new mongoose.Schema(
     content: {
       type: String,
       required: true,
-      maxLength: [8000, "Must be no more than 8000 characters"],
+      maxLength: [800, "Must be no more than 8000 characters"],
     },
     likeCount: {
       type: Number,

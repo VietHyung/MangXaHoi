@@ -34,7 +34,7 @@ function App() {
   initiateSocketConnection();
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} >
       <BrowserRouter>
         <CssBaseline />
         <Routes>

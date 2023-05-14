@@ -85,8 +85,18 @@ const SignupView = () => {
     <Container maxWidth={"xs"} sx={{ mt: { xs: 2, md: 6 } }}>
       <Stack alignItems="center">
         <Typography variant="h2" color="text.secondary" sx={{ mb: 6 }}>
-          <Link to="/" color="inherit" underline="none">
-            SocialMedia
+          <Link to="/" color="inherit" underline="none" fontWeight="bold">
+            <span style={{ color: "#e91e63" }}>S</span>
+            <span style={{ color: "#2196f3" }}>o</span>
+            <span style={{ color: "#9c27b0" }}>c</span>
+            <span style={{ color: "#ffc107" }}>i</span>
+            <span style={{ color: "#4caf50" }}>a</span>
+            <span style={{ color: "#f44336" }}>l</span>
+            <span style={{ color: "#03a9f4" }}>M</span>
+            <span style={{ color: "#8bc34a" }}>e</span>
+            <span style={{ color: "#673ab7" }}>d</span>
+            <span style={{ color: "#ff5722" }}>i</span>
+            <span style={{ color: "#607d8b" }}>a</span>
           </Link>
         </Typography>
         <Typography variant="h5" gutterBottom>

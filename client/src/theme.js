@@ -9,7 +9,7 @@ const theme = createTheme({
       styleOverrides: {
         root: ({ ownerState, theme }) => ({
           ...{
-            padding: theme.spacing(2),
+            padding: theme.spacing(1.5),
             borderWidth: "2.5px",
           },
         }),
@@ -19,6 +19,11 @@ const theme = createTheme({
       defaultProps: {
         maxWidth: "xl",
       },
+    },
+  },
+  palette: {
+    background: {
+      default: "white",
     },
   },
 });

@@ -17,7 +17,7 @@ const createComment = async (req, res) => {
 
     if (cooldown.has(userId)) {
       throw new Error(
-        "You are commenting too frequently. Please try again shortly."
+        "bạn đang phản hồi quá nhanh, vui lòng chờ chút"
       );
     }
 
@@ -102,17 +102,17 @@ const updateComment = async (req, res) => {
     const { userId, content, isAdmin } = req.body;
 
     if (!content) {
-      throw new Error("All input required");
+      throw new Error("cần nhập");
     }
 
     const comment = await Comment.findById(commentId);
 
     if (!comment) {
-      throw new Error("Comment not found");
+      throw new Error("không tìm thấy bình luận");
     }
 
     if (comment.commenter != userId && !isAdmin) {
-      throw new Error("Not authorized to update comment");
+      throw new Error("bạn không có quyền sửa đổi bình luận");
     }
 
     comment.content = content;
@@ -133,11 +133,11 @@ const deleteComment = async (req, res) => {
     const comment = await Comment.findById(commentId);
 
     if (!comment) {
-      throw new Error("Comment not found");
+      throw new Error("không thấy bình luận");
     }
 
     if (comment.commenter != userId && !isAdmin) {
-      throw new Error("Not authorized to delete comment");
+      throw new Error("bạn không có quyền xóa bình luận");
     }
 
     await comment.remove();

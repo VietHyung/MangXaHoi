@@ -6,13 +6,14 @@ import { isLoggedIn } from "../../helpers/authHelper";
 import CommentBrowser from "../CommentBrowser";
 
 import ErrorAlert from "../ErrorAlert";
-import FindUsers from "../FindUsers";
+import FindFollowerUsers from "../FindFollowerUsers";
 import Footer from "../Footer";
 import GoBack from "../GoBack";
 import GridLayout from "../GridLayout";
 import Loading from "../Loading";
 import MobileProfile from "../MobileProfile";
 import Navbar from "../Navbar";
+import LeftSidebar from "../LeftSidebar";
 import PostBrowser from "../PostBrowser";
 import Profile from "../Profile";
 import ProfileTabs from "../ProfileTabs";
@@ -101,6 +102,7 @@ const ProfileView = () => {
       <Navbar />
       <Container sx={{marginTop:"5rem"}}>
         <GridLayout
+          mid={<LeftSidebar/>}
           left={
             <>
               <MobileProfile
@@ -137,7 +139,7 @@ const ProfileView = () => {
                 handleMessage={handleMessage}
                 validate={validate}
               />
-              <FindUsers />
+              <FindFollowerUsers />
               <Footer />
             </Stack>
           }

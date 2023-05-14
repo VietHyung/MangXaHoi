@@ -12,6 +12,14 @@ const FollowSchema = new mongoose.Schema(
       ref: "user",
       required: true,
     },
+    followingName: {
+      type: String,
+      required: true,
+    },
+    followerName: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

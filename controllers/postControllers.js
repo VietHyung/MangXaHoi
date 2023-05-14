@@ -11,12 +11,12 @@ const createPost = async (req, res) => {
     const { title, content, userId } = req.body;
 
     if (!(title && content)) {
-      throw new Error("All input required");
+      throw new Error("cần nhập các trường");
     }
 
     if (cooldown.has(userId)) {
       throw new Error(
-        "You are posting too frequently. Please try again shortly."
+        "bạn đang làm quá nhanh, vui lòng chậm lại"
       );
     }
 
@@ -43,7 +43,7 @@ const getPost = async (req, res) => {
     const { userId } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(postId)) {
-      throw new Error("Post does not exist");
+      throw new Error("không tìm thấy bài đăng");
     }
 
     const post = await Post.findById(postId)
@@ -51,7 +51,7 @@ const getPost = async (req, res) => {
       .lean();
 
     if (!post) {
-      throw new Error("Post does not exist");
+      throw new Error("bài đăng không tồn tại");
     }
 
     if (userId) {
@@ -72,11 +72,11 @@ const updatePost = async (req, res) => {
     const post = await Post.findById(postId);
 
     if (!post) {
-      throw new Error("Post does not exist");
+      throw new Error("bài đăng không tồn tại");
     }
 
     if (post.poster != userId && !isAdmin) {
-      throw new Error("Not authorized to update post");
+      throw new Error("bạn không có quyền sửa đổi bài đăng");
     }
 
     post.content = content;
@@ -98,11 +98,11 @@ const deletePost = async (req, res) => {
     const post = await Post.findById(postId);
 
     if (!post) {
-      throw new Error("Post does not exist");
+      throw new Error("bài đăng không tồn tại");
     }
 
     if (post.poster != userId && !isAdmin) {
-      throw new Error("Not authorized to delete post");
+      throw new Error("bạn không có quyền xóa bài đăng");
     }
 
     await post.remove();
@@ -212,13 +212,13 @@ const likePost = async (req, res) => {
     const post = await Post.findById(postId);
 
     if (!post) {
-      throw new Error("Post does not exist");
+      throw new Error("bài đăng không tồn tại");
     }
 
     const existingPostLike = await PostLike.findOne({ postId, userId });
 
     if (existingPostLike) {
-      throw new Error("Post is already liked");
+      throw new Error("bài đăng đã được like");
     }
 
     await PostLike.create({
@@ -244,13 +244,13 @@ const unlikePost = async (req, res) => {
     const post = await Post.findById(postId);
 
     if (!post) {
-      throw new Error("Post does not exist");
+      throw new Error("bài đăng không tồn tại");
     }
 
     const existingPostLike = await PostLike.findOne({ postId, userId });
 
     if (!existingPostLike) {
-      throw new Error("Post is already not liked");
+      throw new Error("bài đăng không được like");
     }
 
     await existingPostLike.remove();

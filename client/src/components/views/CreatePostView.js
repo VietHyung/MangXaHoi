@@ -5,6 +5,7 @@ import GridLayout from "../GridLayout";
 import Navbar from "../Navbar";
 import PostEditor from "../PostEditor";
 import Sidebar from "../Sidebar";
+import LeftSidebar from "../LeftSidebar";
 
 const CreatePostView = () => {
   return (
@@ -12,7 +13,7 @@ const CreatePostView = () => {
       <Navbar />
       <Container sx={{marginTop:"5rem"}}>
         <GoBack />
-        <GridLayout left={<PostEditor />} right={<Sidebar />} />
+        <GridLayout mid={<LeftSidebar/>} left={<PostEditor />} right={<Sidebar />} />
       </Container>
     </>
   );

@@ -11,7 +11,7 @@ const sendMessage = async (req, res) => {
     const recipient = await User.findById(recipientId);
 
     if (!recipient) {
-      throw new Error("Recipient not found");
+      throw new Error("người nhận không tìm thấy");
     }
 
     let conversation = await Conversation.findOne({
@@ -50,7 +50,7 @@ const getMessages = async (req, res) => {
     const conversation = await Conversation.findById(conversationId);
 
     if (!conversation) {
-      throw new Error("Conversation not found");
+      throw new Error("không tìm thấy cuộc trò chuyện");
     }
 
     const messages = await Message.find({

@@ -6,6 +6,7 @@ import Loading from "../Loading";
 import Navbar from "../Navbar";
 import PostCard from "../PostCard";
 import Sidebar from "../Sidebar";
+import LeftSidebar from "../LeftSidebar";
 import { useParams } from "react-router-dom";
 import { getPost } from "../../api/posts";
 import Comments from "../Comments";
@@ -39,13 +40,14 @@ const PostView = () => {
     <>
       <Navbar />
       <Container sx={{marginTop:"5rem"}}>
-        <GoBack />
         <GridLayout
+          mid={<LeftSidebar/>}
           left={
             loading ? (
               <Loading />
             ) : post ? (
               <Stack spacing={2}>
+                <GoBack />
                 <PostCard post={post} key={post._id} />
 
                 <Comments />
